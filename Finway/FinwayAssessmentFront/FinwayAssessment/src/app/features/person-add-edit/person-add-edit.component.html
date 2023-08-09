@@ -1,0 +1,64 @@
+<div class="header container">
+    <div class="row align-items-center justify-content-center">
+        <h3 class="header__title mt-3">Person Add Edit</h3>
+    </div>
+</div>
+<div class="person-add-edit container">
+    <div class="row align-items-center ">
+        <form class="person-add-edit__form row  mt-3 col-6  align-items-center " [formGroup]="personForm">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [formControlName]="'name'">
+              <div class="form-validation text-danger">
+                <div class="form-validation--invalid m-2" *ngIf="personForm.get('name')?.touched && personForm.get('name')?.hasError('required')">
+                  The field "name" is required
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="email" class="form-label mt-2">email</label>
+              <input type="email" class="form-control" id="email" [formControlName]="'email'">
+              <div class="form-validation text-danger">
+                <div class="form-validation--invalid m-2" *ngIf="personForm.get('email')?.touched && personForm.get('email')?.hasError('required')">
+                  The field "email" is required
+                </div>
+                <div class="form-validation--invalid m-2" *ngIf="personForm.get('email')?.touched && personForm.get('email')?.hasError('pattern')">
+                    The field "email" is not valid
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <label for="name" class="form-label mt-2">Date Of Birth</label>
+                <input type="date" class="form-control" id="name" [formControlName]="'dateOfBirh'">
+                <div class="form-validation text-danger">
+                  <div class="form-validation--invalid m-2" *ngIf="personForm.get('dateOfBirh')?.touched && personForm.get('dateOfBirh')?.hasError('required')">
+                    The field "Date Of Birth" is required
+                  </div>
+                  <div class="form-validation--invalid m-2" *ngIf="personForm.get('dateOfBirh')?.touched && personForm.errors">
+                    The field "Date Of Birth" is Invalid
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="name" class="form-label  mt-2">Select Country</label>
+                <select class="form-control" id="exampleFormControlSelect1" (ngModelChange)="onSelected($event)">
+                    <option *ngFor="let i of countries" [id]="i.id">{{i.name}}</option>
+                   
+                  </select>                
+                  <div class="form-validation text-danger">
+                   <div class="form-validation--invalid m-2" *ngIf="personForm.get('countryId')?.touched && personForm.get('countryId')?.hasError('required')">
+                    The field "Country" is required
+                  </div>
+                  
+              </div>
+            </div>
+            <div class="col-6">
+              <input class="m-3" type="file" (changes)="onChanges($event)">
+
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn person-add-edit__btn" [disabled]="!personForm!.valid" (click)="onSubmit()">Sign in</button>
+            </div>
+          </form>
+    </div>
+</div>

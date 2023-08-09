@@ -1,0 +1,48 @@
+ <div class="upper-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <i class="fas fa-phone"></i> 07070707, <i class="fas fa-envelope"></i> <span> co.eg@gmail.com</span>
+            </div>
+            <div class="col-sm text-right">
+                <span> let's work together</span>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <a class="navbar-brand" href="#"><span>Finway</span> <span>Tech</span>
+              </a>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item active" routerLinkActive="active" *ngIf="!loggedIn()">
+                    <a class="nav-link" [routerLink]="['/login']">Login <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="!loggedIn()">
+                    <a class="nav-link" [routerLink]="['/register']">Register</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn()">
+                    <a class="nav-link" [routerLink]="['/persons']">Persons</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active" *ngIf="loggedIn()">
+                    <a class="nav-link" [routerLink]="['/person-add-edit']">Add Person</a>
+                </li>
+                <li class="nav-item dropdown" *ngIf="loggedIn()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome {{ name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item"(click)="loggedOut()">LoggedOut</a>
+                      
+                    </div>
+                  </li>
+            </ul>
+
+        </div>
+    </div>
+
+</nav>

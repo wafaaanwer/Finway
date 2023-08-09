@@ -1,0 +1,36 @@
+
+
+.upper-nav {
+    background-color: #08526d;
+    color: #FFF;
+    padding: 10px;
+    span {
+        color: #cfc6c9;
+    }
+}
+
+
+.navbar-brand span:first-child {
+    color: #08526d;
+    font-weight: bold;
+}
+
+.navbar-brand span:last-child {
+    color: #ec1c23;
+}
+
+.navbar-brand>span {
+    font-size: 26px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-left: 20px;
+    color: #08526d;
+}
+
+.navbar-nav .active>.nav-link {
+    color: #ec1c23 !important;
+    font-weight: bold;
+}
