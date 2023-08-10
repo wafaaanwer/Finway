@@ -1,1 +1,18 @@
-<p>person works!</p>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top card-img" [src]="image" alt="Card image cap">
+    
+    <div class="card-body">
+        <div class="">
+            <a><h5 [routerLink]="['/person-add-edit', person?.id]">{{person!.name}}</h5></a>
+          </div>
+      <p class="">{{person!.email}}</p>
+      <p class="">{{person!.dateOfBirh! | age: person!.dateOfBirh}} </p>
+      <p class="">{{person!.country!.name}}</p>
+      <div>
+        <a (click)="onPrint()" class="btn mr-2 person__btn">Print</a>
+        <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+    
+  </div>
+  

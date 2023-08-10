@@ -4,6 +4,7 @@ using Finway.Assessment.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Finway.Assessment.DAL.Migrations
 {
     [DbContext(typeof(FinwayAssessmentDbContext))]
-    partial class FinwayAssessmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809183236_modify")]
+    partial class modify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

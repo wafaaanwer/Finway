@@ -37,7 +37,7 @@ namespace Finway.Assessment.BLL.Repositories
 
         public async Task<IQueryable<Person>> GetAsync(Expression<Func<Person, bool>>? filter = null)
         {
-            IQueryable<Person> query = dbSet;
+            IQueryable<Person> query = dbSet.Where(a => a.IsDeleted != true).Include(a => a.Country);
             if (filter != null)
             {
                 query = query.Where(filter);

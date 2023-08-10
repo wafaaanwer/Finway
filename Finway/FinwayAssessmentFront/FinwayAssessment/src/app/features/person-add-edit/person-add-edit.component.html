@@ -1,6 +1,6 @@
 <div class="header container">
     <div class="row align-items-center justify-content-center">
-        <h3 class="header__title mt-3">Person Add Edit</h3>
+        <h3 class="header__title mt-3">{{title}}</h3>
     </div>
 </div>
 <div class="person-add-edit container">
@@ -41,8 +41,8 @@
               </div>
               <div class="col-md-6">
                 <label for="name" class="form-label  mt-2">Select Country</label>
-                <select class="form-control" id="exampleFormControlSelect1" (ngModelChange)="onSelected($event)">
-                    <option *ngFor="let i of countries" [id]="i.id">{{i.name}}</option>
+                <select #ref class="form-control" id="exampleFormControlSelect1" (change)="onSelected(ref)">
+                    <option *ngFor="let i of countries" [value]="i.id">{{i.name}}</option>
                    
                   </select>                
                   <div class="form-validation text-danger">
@@ -53,12 +53,15 @@
               </div>
             </div>
             <div class="col-6">
-              <input class="m-3" type="file" (changes)="onChanges($event)">
+              <input class="m-3" type="file" (change)="onChanges($event)">
 
             </div>
             <div class="col-12">
-              <button type="submit" class="btn person-add-edit__btn" [disabled]="!personForm!.valid" (click)="onSubmit()">Sign in</button>
+              <button type="submit" class="btn person-add-edit__btn" [disabled]="!personForm!.valid" (click)="onSubmit()">Submit</button>
             </div>
           </form>
+          <div class="person-add-edit__img-container col-6">
+              <img [src]="url" class="person-add-edit__img"/>
+          </div>
     </div>
 </div>

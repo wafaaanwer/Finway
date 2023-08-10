@@ -1,0 +1,9 @@
+.card-img{
+  height: 12rem !important;
+}
+.person{
+    &__btn{
+        background-color: hsl(196, 86%, 23%);
+        color: #FFF;
+    }
+}

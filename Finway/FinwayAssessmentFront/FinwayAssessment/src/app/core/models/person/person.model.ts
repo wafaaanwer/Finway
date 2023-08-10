@@ -6,5 +6,6 @@ export interface PersonModel{
     email?:string;
     dateOfBirh?:Date,
     country?: CountryModel,
-    image?:File
+    countryId?: number,
+    image?:File | string;
 }

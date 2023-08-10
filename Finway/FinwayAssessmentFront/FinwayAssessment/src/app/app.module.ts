@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { AgePipe } from './core/pipes/age.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DatePipe } from '@angular/common';
     RegisterComponent,
     PersonAddEditComponent,
     PersonComponent,
-    PersonListingComponent
+    PersonListingComponent,
+    AgePipe
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { DatePipe } from '@angular/common';
   ],
   providers: [
     DatePipe,
+    AgePipe,
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
 

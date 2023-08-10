@@ -5,6 +5,7 @@ using Finway.Assessment.DAL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Finway.Assessment.API.Controllers
@@ -23,8 +24,37 @@ namespace Finway.Assessment.API.Controllers
             Mapper = mapper;
             WebHostEnvironment = webHostEnvironment;
         }
-       
 
+        [HttpGet("GetPerson/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPersonAsync(int id)
+        {
+            try
+            {
+                var result = await (await UnitOfWork.PersonRepository.GetAsync(i => i.Id == id)).FirstOrDefaultAsync();
+                return Ok(Mapper.Map<PersonDto>(result));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Sorry Error Occured!" });
+
+            }
+        }
+        [HttpPost("FilterPerson")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> FilterPersonAsync([FromBody]int? countryId)
+        {
+            try
+            {
+                var result = (await UnitOfWork.PersonRepository.GetAsync(i => countryId == null ? true : i.Country != null && i.Country.Id == countryId));
+                return Ok(Mapper.Map<IEnumerable<PersonDto>>(result));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Sorry Error Occured!" });
+
+            }
+        }
         [HttpPost("AddPerson")]
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,14 +64,17 @@ namespace Finway.Assessment.API.Controllers
             {
                 var personResult = Mapper.Map<Person>(person);
                 personResult.Image = UploadedFile(person);
-                return Ok(await UnitOfWork.PersonRepository.CreateAsync(personResult));
+                var result = await UnitOfWork.PersonRepository.CreateAsync(personResult);
+                await UnitOfWork.PersonRepository.SaveChangesAsync();
+                return Ok(result);
             }
-            catch
+            catch(Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "Sorry Error Occured!" });
 
             }
         }
+
         [HttpPut("EditPerson")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> EditPersonAsync([FromForm] PersonAddEditDto person)
@@ -50,7 +83,9 @@ namespace Finway.Assessment.API.Controllers
             {
                 var personResult = Mapper.Map<Person>(person);
                 personResult.Image = UploadedFile(person);
-                return Ok(await UnitOfWork.PersonRepository.UpdateAsync(personResult));
+                var result = await UnitOfWork.PersonRepository.UpdateAsync(personResult);
+                await UnitOfWork.PersonRepository.SaveChangesAsync();
+                return Ok(result);
             }
             catch
             {
@@ -65,7 +100,9 @@ namespace Finway.Assessment.API.Controllers
         {
             try
             {
-                return Ok(await UnitOfWork.PersonRepository.DeleteAsync(id));
+                var result = await UnitOfWork.PersonRepository.DeleteAsync(id);
+                await UnitOfWork.PersonRepository.SaveChangesAsync();              
+                return Ok(result);
             }
             catch
             {

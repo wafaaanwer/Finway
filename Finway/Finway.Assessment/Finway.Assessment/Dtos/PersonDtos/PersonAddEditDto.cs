@@ -16,7 +16,7 @@ namespace Finway.Assessment.API.Dtos.PersonDtos
 
         public int? CountryId { get; set; }
         [MaxFileSize(2 * 1024 * 1024)]
-        [AllowedExtensions(new string[] { ".jpeg", ".ng", ".pmb" })]
+        [AllowedExtensions(new string[] { ".jpeg", ".png", ".pmb" })]
         public IFormFile? Image { get; set; }
         
 
