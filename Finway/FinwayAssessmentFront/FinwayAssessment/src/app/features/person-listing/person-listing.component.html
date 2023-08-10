@@ -4,9 +4,20 @@
     </div>
 </div>
 <div class="persons container">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="name" class="form-label  mt-2">Search by Country</label>
+            <select #ref class="form-control" id="exampleFormControlSelect1" (change)="onSelected(ref)">
+                <option>Select Country</option>
+                <option *ngFor="let i of countries" [value]="i.id">{{i.name}}</option>    
+              </select>                        
+          </div>
+    </div>
     <div class="row align-items-center ">
+
       <div class="col-4" *ngFor="let person of persons">
         <app-person [person]="person" (deletePerson)="onDeletingPerson($event)"></app-person>
       </div>
     </div>
+    
 </div>

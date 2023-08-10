@@ -8,6 +8,8 @@
         <form class="person-add-edit__form row  mt-3 col-6  align-items-center " [formGroup]="personForm">
             <div class="col-md-6">
               <label for="name" class="form-label">Name</label>
+              <input type="hidden" class="form-control" id="id" [formControlName]="'id'">
+
               <input type="text" class="form-control" id="name" [formControlName]="'name'">
               <div class="form-validation text-danger">
                 <div class="form-validation--invalid m-2" *ngIf="personForm.get('name')?.touched && personForm.get('name')?.hasError('required')">

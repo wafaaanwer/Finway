@@ -31,8 +31,14 @@ namespace Finway.Assessment.API.Controllers
         {
             try
             {
-                var result = await (await UnitOfWork.PersonRepository.GetAsync(i => i.Id == id)).FirstOrDefaultAsync();
-                return Ok(Mapper.Map<PersonDto>(result));
+                var person = await (await UnitOfWork.PersonRepository.GetAsync(i => i.Id == id)).FirstOrDefaultAsync();
+                var result = Mapper.Map<PersonDto>(person);
+                if(result.Image != null)
+                {
+                    result.Image = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\images\" + result.Image}";
+
+                }
+                return Ok(result);
             }
             catch
             {
@@ -47,6 +53,16 @@ namespace Finway.Assessment.API.Controllers
             try
             {
                 var result = (await UnitOfWork.PersonRepository.GetAsync(i => countryId == null ? true : i.Country != null && i.Country.Id == countryId));
+                foreach(var item in result)
+                {
+                    if(item.Image != null)
+                    {
+                        string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\images\"}{item.Image}";
+                        item.Image = path;
+                    }
+                   
+                }
+
                 return Ok(Mapper.Map<IEnumerable<PersonDto>>(result));
             }
             catch

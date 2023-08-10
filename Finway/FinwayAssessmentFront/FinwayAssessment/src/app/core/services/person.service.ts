@@ -32,7 +32,7 @@ export class PersonService {
     formatDate.append("email", person.email!);
     formatDate.append("dateOfBirh", person.dateOfBirh!.toString());
     formatDate.append("countryId", person.countryId!.toString());
-    return this.httpClient.put(`${this.baseUrl}EditPerson`, person);
+    return this.httpClient.put(`${this.baseUrl}EditPerson`, formatDate);
   }
   deletePerson(id:number){
     return this.httpClient.delete(`${this.baseUrl}DeletePerson/${id}`);

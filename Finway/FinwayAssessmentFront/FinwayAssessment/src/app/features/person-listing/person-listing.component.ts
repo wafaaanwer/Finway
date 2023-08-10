@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CountryModel } from 'src/app/core/models/country/country.model';
 import { PersonModel } from 'src/app/core/models/person/person.model';
+import { CountryService } from 'src/app/core/services/country.service';
 import { PersonService } from 'src/app/core/services/person.service';
 
 @Component({
@@ -9,9 +11,15 @@ import { PersonService } from 'src/app/core/services/person.service';
 })
 export class PersonListingComponent implements OnInit {
   persons: PersonModel[] = [];
-  constructor(private personService: PersonService){}
+  countries: CountryModel[] = [];
+
+  constructor(private personService: PersonService, private countryService: CountryService){}
   ngOnInit(): void {
     this.filterPersons();
+    this.countryService.getAll().subscribe(result =>{
+      console.log(result);
+      this.countries = result;
+    });
   }
   onDeletingPerson(id:number){
     const deletedPersonIndex = this.persons.findIndex(i => i.id == id);
@@ -21,7 +29,12 @@ export class PersonListingComponent implements OnInit {
   filterPersons(countryId?:number){
     this.personService.filterPersons(countryId).subscribe((res) =>{
       this.persons = res;
-      console.log(this.persons);
     });
   }
+  onSelected(value:any){
+    console.log(value.value);
+    this.personService.filterPersons(+value.value).subscribe((res) =>{
+      this.persons = res;
+    });    
+ }
 }

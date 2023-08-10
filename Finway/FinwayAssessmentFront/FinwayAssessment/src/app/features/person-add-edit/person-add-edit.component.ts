@@ -56,23 +56,21 @@ export class PersonAddEditComponent implements OnInit {
         this.personForm.patchValue({
           id: this.personAddEdit!.id,
           countryId: this.personAddEdit!.country?.id,
-          nameEn: this.personAddEdit!.name,
-          date: this.datePipe.transform(this.personAddEdit!.dateOfBirh, 'yyyy-MM-dd'),
+          name: this.personAddEdit!.name,
+          dateOfBirh: this.datePipe.transform(this.personAddEdit!.dateOfBirh, 'yyyy-MM-dd'),
+          email: this.personAddEdit!.email,
+
         });
       });
     } else{
       this.title = 'Add Person';
 
     }
-    if (this.personAddEdit !== undefined) {
-      this.personForm.patchValue({
-        id: this.personAddEdit!.id,
-        countryId: this.personAddEdit!.country?.id,
-        nameEn: this.personAddEdit!.name,
-        date: this.datePipe.transform(this.personAddEdit!.dateOfBirh, 'yyyy-MM-dd'),
-      });
-    }
+    
   }
+
+
+
   onReset() {
     this.cancel.emit();
     this.personForm.reset();
@@ -94,6 +92,7 @@ export class PersonAddEditComponent implements OnInit {
         this.personService.editPerson(this.personAddEdit!)
           .subscribe({
             next: () => {
+              this.router.navigate(['./persons']);
               this.edit.emit(this.personAddEdit);
             }
           })
