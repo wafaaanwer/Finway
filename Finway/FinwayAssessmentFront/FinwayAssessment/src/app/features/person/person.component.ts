@@ -22,7 +22,7 @@ export class PersonComponent implements OnInit {
     }
   }
   onPrint(){
-
+    console.log(this.person);
   }
   onDelete(){
     this.personService.deletePerson(this.person?.id!).subscribe(() => {

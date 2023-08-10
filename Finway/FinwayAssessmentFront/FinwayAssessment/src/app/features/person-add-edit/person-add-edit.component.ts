@@ -37,7 +37,7 @@ export class PersonAddEditComponent implements OnInit {
         dateOfBirh: new FormControl('', [Validators.required]),
         image:new FormControl()
       },
-      //{ validators: this.validateDateOfBirth }
+      { validators: this.validateDateOfBirth }
     );
     this.countryService.getAll().subscribe(result =>{
       console.log(result);
@@ -69,8 +69,6 @@ export class PersonAddEditComponent implements OnInit {
     
   }
 
-
-
   onReset() {
     this.cancel.emit();
     this.personForm.reset();
@@ -99,22 +97,16 @@ export class PersonAddEditComponent implements OnInit {
       }
     }
   }
-   /*validateDateOfBirth(control: AbstractControl): { [key: string]: any } | null {
+   validateDateOfBirth(control: AbstractControl): { [key: string]: any } | null {
     const dateOfBirth = control.get('dateOfBirth');
-    const age = this.calculateAge(dateOfBirth?.value);
-  
-    // check if date is valid and person is between 18 and 100 years old
-    if (isNaN(dateOfBirth?.value.getTime()) || age < 18 && age > 100) {
+    let timeDiff = Math.abs(Date.now() - new Date(dateOfBirth?.value).getTime());
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    if (age < 0 ||  age > 100) {
       return { 'invalidDateOfBirth': true };
     }
-  
     return null;
   }
-   calculateAge(birthday: Date) {
-    const ageDifMs = Date.now() - birthday.getTime();
-    const ageDate = new Date(ageDifMs);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-   }*/
+ 
    onChanges(event:any){
       this.file = event.target.files[0];
       console.log(this.file);
